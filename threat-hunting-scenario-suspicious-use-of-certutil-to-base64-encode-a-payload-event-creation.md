@@ -3,12 +3,17 @@
 
 ## Steps the "Bad Actor" took Create Logs and IoCs:
 1. Places a benign or suspicious .exe file in C:\Users\Public\, named sample.exe:
+```kql
 Copy-Item "C:\Windows\System32\notepad.exe" "C:\Users\Public\sample.exe"
-2. Encodes the file using certutil:
+```
+3. Encodes the file using certutil:
+```kql
 certutil -encode "C:\Users\Public\sample.exe" "C:\Users\Public\payload.txt"
-3. Deletes the original .exe:
+```
+4. Deletes the original .exe:
+```kql
 del "C:\Users\Public\sample.exe"
-
+```
 ---
 
 ## Tables Used to Detect IoCs:
