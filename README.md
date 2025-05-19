@@ -27,13 +27,13 @@ The objective of this threat hunt is to detect the use of certutil.exe for paylo
 Searched for any use of certutil.exe with the -encode flag. User, huy, executed the command, "certutil.exe -encode C:\Users\Public\sample.exe C:\Users\Public\payload.txt" to Base64-encode a file at 2025-05-19T20:00:21.5641348Z.
 
 **Query used to locate events:**
-
+```kql
 DeviceProcessEvents
 | where DeviceName == "huy"
 | where FileName =~ "certutil.exe"
 | where ProcessCommandLine has "-encode"
 | project Timestamp, DeviceName, AccountName, FileName, ProcessCommandLine, FolderPath
-
+```
 <img width="1032" alt="Screenshot 2025-05-19 at 4 41 54 PM" src="https://github.com/user-attachments/assets/9fce2489-af67-4f2d-9f82-6cc9fdbb0363" />
 
 ---
@@ -43,11 +43,11 @@ DeviceProcessEvents
 Searched for file events involving sample.exe. This revealed that shortly after the Base64-encoded file was created, the original sample.exe file was deleted at 2025-05-19T20:00:34.3203707Z by user, huy. This behavior suggests an attempt to cover tracks after encoding the payload.
 
 **Query used to locate event:**
-
+```kql
 DeviceFileEvents
 | where FileName == "sample.exe"
 | project Timestamp, DeviceName, FileName, FolderPath, InitiatingProcessFileName, ActionType
-
+```
 <img width="987" alt="Screenshot 2025-05-19 at 4 43 31 PM" src="https://github.com/user-attachments/assets/64bcb02e-d057-49e8-890c-7b863f22df2e" />
 
 ---
