@@ -16,7 +16,7 @@ The objective of this threat hunt is to detect the use of certutil.exe for paylo
 ### High-Level TOR-Related IoC Discovery Plan
 
 - **Check DeviceProcessEvents** for suspicious use of certutil.exe, especially with flags like -encode, -decode, or usage pointing to uncommon or suspicious file names.
-- **Check DeviceFileEvents** for encoded output file.
+- **Check DeviceFileEvents** for deletion of the original executable.
 
 ---
 
